@@ -1,0 +1,39 @@
+# .gitignore
+
+# Ignore node_modules for Angular frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+frontend/.env
+
+# Ignore .NET build outputs
+backend/bin/
+backend/obj/
+backend/.env
+
+# Ignore user-specific files
+*.swp
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Ignore Terraform state files
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+
+# Ignore sensitive information
+*.tfvars
+*.tfvars.json
+
+# Ignore logs and temporary files
+*.log
+*.tmp
+*.bak
+*.swp
+*.DS_Store
+
+# Ignore Visual Studio Code settings
+.vscode/
