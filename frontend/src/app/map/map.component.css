@@ -2,15 +2,3 @@
   height: 500px;
   width: 100%;
 }
-.marker-label {
-  background-color: white;
-  border: 1px solid black;
-  border-radius: 50%;
-  padding: 5px;
-  text-align: center;
-  width: 20px;
-  height: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}

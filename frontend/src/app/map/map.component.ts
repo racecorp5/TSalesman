@@ -9,7 +9,7 @@ import { TSPService } from '../tsp.service';
 export class MapComponent implements OnInit {
   @ViewChild('map', { static: true }) mapElement: ElementRef;
   map: google.maps.Map;
-  markers: google.maps.Marker[] = [];
+  markers: google.maps.marker.AdvancedMarkerElement[] = [];
   maxPins = 20;
   geocoder: google.maps.Geocoder;
 
@@ -21,7 +21,8 @@ export class MapComponent implements OnInit {
     const mapProperties = {
       center: new google.maps.LatLng(39.8283, -98.5795),
       zoom: 5,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      mapId: "bigmap"
     };
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapProperties);
 
@@ -32,20 +33,29 @@ export class MapComponent implements OnInit {
     });
   }
 
+  createMarkerContent(name: string, index?: number): HTMLDivElement {
+    console.log(index);
+    const element = document.createElement('div');
+    element.className = index == 0 ? 'starting-location map-city-name' : 'map-city-name';
+    element.textContent = index ? `${index} ${name}` : name;
+    return element;
+  }
+    
   addMarker(location: google.maps.LatLng): void {
     this.geocoder.geocode({ location: location }, (results, status) => {
       if (status === 'OK' && results[0]) {
         const city = this.getCityFromResults(results);
-        const marker = new google.maps.Marker({
+        const intital = this.markers.length === 0 ? 0 : undefined; // Highlight the first one
+        const marker = new google.maps.marker.AdvancedMarkerElement({
           position: location,
           map: this.map,
-          draggable: true,
-          label: city
+          content: this.createMarkerContent(city, intital),
         });
+
         this.markers.push(marker);
 
         marker.addListener('rightclick', () => {
-          marker.setMap(null);
+          marker.map = null;
           this.markers = this.markers.filter(m => m !== marker);
         });
       } else {
@@ -65,32 +75,37 @@ export class MapComponent implements OnInit {
     return 'Unknown';
   }
 
-  createMarkerLabel(index: number): string {
-    const label = index.toString();
-    return label;
-  }
-
   submit(): void {
     const cities = this.markers.map(marker => ({
-      city: marker.getLabel(),
-      lat: marker.getPosition().lat(),
-      lng: marker.getPosition().lng(),
+      city: marker.content.textContent,
+      lat: marker.position.lat,
+      lng: marker.position.lng,
     }));
 
     this.tspService.solveTSP(cities).subscribe(response => {
-      console.log('Ordered Cities:', response.orderedCities);
-      console.log('Total Distance:', response.totalDistance);
-      // this.updateMap(response);
+      this.updateMap(response);
     });
   }
 
   updateMap(response: any): void {
     // Clear existing markers and routes
-    this.markers.forEach(marker => marker.setMap(null));
+    this.markers.forEach(marker => marker.map = null);
     this.markers = [];
 
+    const path: any[] = [];
+
     // Add new markers and draw routes
-    const path = response.cities.map(city => new google.maps.LatLng(city.lat, city.lng));
+    response.orderedCities.forEach((city, index) => {
+      path.push(new google.maps.LatLng(city.lat, city.lng));
+
+      const marker = new google.maps.marker.AdvancedMarkerElement({
+        position: new google.maps.LatLng(city.lat, city.lng),
+        map: this.map,
+        content: this.createMarkerContent(city.city, index), // Highlight the first one
+      });
+      this.markers.push(marker);
+    });
+
     const route = new google.maps.Polyline({
       path,
       geodesic: true,
@@ -99,20 +114,5 @@ export class MapComponent implements OnInit {
       strokeWeight: 2
     });
     route.setMap(this.map);
-
-    response.cities.forEach((city, index) => {
-      const marker = new google.maps.Marker({
-        position: new google.maps.LatLng(city.lat, city.lng),
-        map: this.map,
-        label: city.name,
-      });
-      this.markers.push(marker);
-    });
-
-    // Display distances
-    console.log('Total Distance:', response.totalDistance);
-    response.cities.forEach(city => {
-      console.log(`Distance from last point: ${city.distanceFromLastPoint}`);
-    });
   }
 }

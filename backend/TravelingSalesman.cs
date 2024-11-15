@@ -67,8 +67,8 @@ namespace TspFunctionNamespace
                 var city = locations[index].City;
                 var lat = locations[index].Lat;
                 var lng = locations[index].Lng;
-                var distanceToLastPoint = i > 0 ? distanceMatrix[orderedIndices[i - 1]][index] : 0;
-                orderedCities.Add(new OrderedCity(city, lat, lng, distanceToLastPoint));
+                var distanceFromLastPoint = i > 0 ? distanceMatrix[orderedIndices[i - 1]][index] : 0;
+                orderedCities.Add(new OrderedCity(city, lat, lng, distanceFromLastPoint));
             }
             
             return new ShortestRouteResponse(orderedCities, totalDistance);
@@ -104,37 +104,6 @@ namespace TspFunctionNamespace
 
             return distanceMatrix;
         }
-        
-        // static List<List<double>> CreateDistanceMatrixAlgo(List<Location> locations)
-        // {
-        //     var distanceMatrix = new List<List<double>>();
-        //     foreach (var loc1 in locations)
-        //     {
-        //         var row = new List<double>();
-        //         foreach (var loc2 in locations)
-        //         {
-        //             var distance = CalculateDistance(loc1, loc2);
-        //             row.Add(distance);
-        //         }
-        //         distanceMatrix.Add(row);
-        //     }
-        //     return distanceMatrix;
-        // }
-
-        // static double CalculateDistance(Location loc1, Location loc2)
-        // {
-        //     // Use Haversine formula to calculate distance
-        //     double R = 6371; // Radius of the earth in km
-        //     double dLat = (loc2.Lat - loc1.Lat) * Math.PI / 180;
-        //     double dLng = (loc2.Lng - loc1.Lng) * Math.PI / 180;
-        //     double a =
-        //         Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
-        //         Math.Cos(loc1.Lat * Math.PI / 180) * Math.Cos(loc2.Lat * Math.PI / 180) *
-        //         Math.Sin(dLng / 2) * Math.Sin(dLng / 2);
-        //     double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
-        //     double distance = R * c; // Distance in km
-        //     return distance;
-        // }
 
         static private (List<int> orderedIndices, double totalDistance) SolveTSPWithORTools(List<List<double>> distanceMatrix, ILogger log)
         {
@@ -184,7 +153,7 @@ namespace TspFunctionNamespace
 
     public record RequestData(List<Location> Cities);
     public record Location(double Lat, double Lng, string City);
-    public record OrderedCity(string City, double Lat, double Lng, double DistanceToLastPoint);
+    public record OrderedCity(string City, double Lat, double Lng, double distanceFromLastPoint);
     public record ShortestRouteResponse(List<OrderedCity> OrderedCities, double TotalDistance);
 
     public record GoogleDistanceMatrixResponse(List<Row> Rows);
