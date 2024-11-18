@@ -159,4 +159,18 @@ export class MapComponent implements OnInit {
     });
     this.route.push(route);
   }
+
+  resetMap(): void {
+    // Clear existing markers and routes
+    this.markers.forEach(marker => marker.map = null);
+    this.markers = [];
+    this.route.forEach(marker => {
+      if (marker instanceof google.maps.Polyline) {
+        marker.setMap(null);
+      } else {
+        marker.map = null;
+      }
+    });
+    this.route = [];
+  }
 }
