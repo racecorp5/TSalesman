@@ -32,7 +32,7 @@ jobs:
       working-directory: ./frontend
 
     - name: Upload Angular build artifacts
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: angular-build
         path: ./frontend/dist
@@ -55,7 +55,7 @@ jobs:
       working-directory: ./backend
 
     - name: Upload C# build artifacts
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: csharp-build
         path: ./backend/publish
