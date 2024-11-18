@@ -10,6 +10,7 @@ frontend/.env
 backend/bin/
 backend/obj/
 backend/.env
+backend/local.settings.json
 
 # Ignore user-specific files
 *.swp

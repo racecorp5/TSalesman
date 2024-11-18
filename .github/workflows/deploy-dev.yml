@@ -13,6 +13,58 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '20'
+
+    - name: Install Angular CLI
+      run: npm install -g @angular/cli
+
+    - name: Install dependencies
+      run: npm install
+      working-directory: ./frontend
+
+    - name: Build Angular app
+      run: |
+        echo "GMAPS_API_KEY=${{ secrets.GMAPS_API_KEY }}" > ./frontend/.env
+        ng build --prod
+      working-directory: ./frontend
+
+    - name: Upload Angular build artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: angular-build
+        path: ./frontend/dist
+
+    - name: Set up .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '6.0.x'
+
+    - name: Restore dependencies
+      run: dotnet restore
+      working-directory: ./backend
+
+    - name: Build C# app
+      run: dotnet build --configuration Release
+      working-directory: ./backend
+
+    - name: Publish C# app
+      run: dotnet publish --configuration Release --output ./publish
+      working-directory: ./backend
+
+    - name: Upload C# build artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: csharp-build
+        path: ./backend/publish
+
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
     - name: Set up Terraform
       uses: hashicorp/setup-terraform@v1
 
@@ -23,8 +75,3 @@ jobs:
     - name: Apply Terraform
       run: terraform apply -var-file="dev.tfvars" -auto-approve
       working-directory: ./terraform
-
-    - name: Azure Login
-      uses: azure/login@v1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
