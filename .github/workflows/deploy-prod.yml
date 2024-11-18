@@ -25,10 +25,11 @@ jobs:
       run: npm install
       working-directory: ./frontend
 
+    - name: Create .env file with GMAPS_API_KEY
+      run: echo "GMAPS_API_KEY=${{ secrets.GMAPS_API_KEY }}" > ./frontend/.env
+
     - name: Build Angular app
-      run: |
-        echo "GMAPS_API_KEY=${{ secrets.GMAPS_API_KEY }}" > ./frontend/.env
-        ng build --prod
+      run: ng build --prod
       working-directory: ./frontend
 
     - name: Upload Angular build artifacts
