@@ -4,13 +4,7 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using System;
-using System.IO;
 using Newtonsoft.Json;
-using System.Linq;
-using System.Net.Http;
 using System.Net.Http.Json;
 
 namespace TspFunctionNamespace
@@ -54,7 +48,6 @@ namespace TspFunctionNamespace
         {
             // Create the distance matrix
             var distanceMatrix = await CreateDistanceMatrix(locations, log);
-            // var distanceMatrix = CreateDistanceMatrixAlgo(locations);
 
             // Solve the TSP problem
             var (orderedIndices, totalDistance) = SolveTSPWithORTools(distanceMatrix, log);

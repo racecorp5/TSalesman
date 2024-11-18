@@ -10,6 +10,7 @@ export class MapComponent implements OnInit {
   @ViewChild('map', { static: true }) mapElement: ElementRef;
   map: google.maps.Map;
   markers: google.maps.marker.AdvancedMarkerElement[] = [];
+  route: (google.maps.Polyline | google.maps.marker.AdvancedMarkerElement)[] = [];
   maxPins = 20;
   geocoder: google.maps.Geocoder;
 
@@ -34,13 +35,24 @@ export class MapComponent implements OnInit {
   }
 
   createMarkerContent(name: string, index?: number): HTMLDivElement {
-    console.log(index);
     const element = document.createElement('div');
     element.className = index == 0 ? 'starting-location map-city-name' : 'map-city-name';
     element.textContent = index ? `${index} ${name}` : name;
     return element;
   }
     
+  createDistanceMarkerContent(distance: string): HTMLDivElement {
+    const element = document.createElement('div');
+    element.style.backgroundColor = 'white';
+    element.style.border = '1px solid black';
+    element.style.borderRadius = '4px';
+    element.style.padding = '2px 4px';
+    element.style.fontSize = '12px';
+    element.style.fontWeight = 'bold';
+    element.style.color = '#FF0000';
+    element.textContent = distance+"m";
+    return element;
+  }
   addMarker(location: google.maps.LatLng): void {
     this.geocoder.geocode({ location: location }, (results, status) => {
       if (status === 'OK' && results[0]) {
@@ -91,19 +103,50 @@ export class MapComponent implements OnInit {
     // Clear existing markers and routes
     this.markers.forEach(marker => marker.map = null);
     this.markers = [];
+    this.route.forEach(marker => {
+      if (marker instanceof google.maps.Polyline) {
+        marker.setMap(null);
+      } else {
+        marker.map = null;
+      }
+    });
+    this.route = [];
 
     const path: any[] = [];
 
     // Add new markers and draw routes
+    const size = response.orderedCities.length;
     response.orderedCities.forEach((city, index) => {
       path.push(new google.maps.LatLng(city.lat, city.lng));
 
+      if(index === size - 1) {
+        return;
+      }
       const marker = new google.maps.marker.AdvancedMarkerElement({
         position: new google.maps.LatLng(city.lat, city.lng),
         map: this.map,
         content: this.createMarkerContent(city.city, index), // Highlight the first one
       });
       this.markers.push(marker);
+        let midpoint: google.maps.LatLng;
+        let content: HTMLDivElement;
+        if(index === 0) {
+          const lastCity = response.orderedCities[size-2];
+          const lastCityPoint = new google.maps.LatLng(lastCity.lat, lastCity.lng);
+          midpoint = google.maps.geometry.spherical.interpolate(path[index], lastCityPoint, 0.5);
+          content = this.createDistanceMarkerContent(response.orderedCities[size-1].distanceFromLastPoint);
+        } else {
+          midpoint = google.maps.geometry.spherical.interpolate(path[index], path[index-1], 0.5);
+          content = this.createDistanceMarkerContent(city.distanceFromLastPoint);
+        }
+
+        // Create and display the AdvancedMarkerElement
+        const labelMarker = new google.maps.marker.AdvancedMarkerElement({
+          position: midpoint,
+          map: this.map,
+          content,
+        });
+        this.route.push(labelMarker);
     });
 
     const route = new google.maps.Polyline({
@@ -111,8 +154,9 @@ export class MapComponent implements OnInit {
       geodesic: true,
       strokeColor: '#FF0000',
       strokeOpacity: 1.0,
-      strokeWeight: 2
+      strokeWeight: 2,
+      map: this.map
     });
-    route.setMap(this.map);
+    this.route.push(route);
   }
 }
