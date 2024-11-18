@@ -1,3 +1,6 @@
 <div #map id="map" style="height: 500px; width: 100%;"></div>
-<button (click)="submit()">Submit</button>
-<button (click)="resetMap()">Reset</button>
+<div class="button-container">
+  <button class="btn btn-submit" (click)="submit()">Submit</button>
+  <button class="btn btn-reset" (click)="resetMap()">Reset</button>
+  <span *ngIf="totalDistance > 0" class="total-distance">Total Distance: {{ totalDistance | number:'1.0-2' }} meters</span>
+</div>

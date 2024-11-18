@@ -13,6 +13,7 @@ export class MapComponent implements OnInit {
   route: (google.maps.Polyline | google.maps.marker.AdvancedMarkerElement)[] = [];
   maxPins = 20;
   geocoder: google.maps.Geocoder;
+  totalDistance = 0;
 
   constructor(private tspService: TSPService) {}
 
@@ -147,6 +148,7 @@ export class MapComponent implements OnInit {
           content,
         });
         this.route.push(labelMarker);
+        this.totalDistance = response.totalDistance;
     });
 
     const route = new google.maps.Polyline({
@@ -172,5 +174,6 @@ export class MapComponent implements OnInit {
       }
     });
     this.route = [];
+    this.totalDistance = 0;
   }
 }
