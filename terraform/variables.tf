@@ -30,3 +30,27 @@ variable "function_app_name" {
   description = "The name of the Function App"
   type        = string
 }
+
+variable "client_id" {
+  description = "The client ID of the Azure service principal"
+  type        = string
+  default     = ""
+}
+
+variable "client_secret" {
+  description = "The client secret of the Azure service principal"
+  type        = string
+  default     = ""
+}
+
+variable "subscription_id" {
+  description = "The subscription ID"
+  type        = string
+  default     = ""
+}
+
+variable "tenant_id" {
+  description = "The tenant ID"
+  type        = string
+  default     = ""
+}

@@ -25,10 +25,6 @@ backend/local.settings.json
 .terraform/
 .terraform.lock.hcl
 
-# Ignore sensitive information
-*.tfvars
-*.tfvars.json
-
 # Ignore logs and temporary files
 *.log
 *.tmp
