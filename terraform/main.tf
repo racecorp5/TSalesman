@@ -48,6 +48,5 @@ resource "azurerm_linux_function_app" "function_app" {
 
   app_settings = {
     FUNCTIONS_WORKER_RUNTIME = "dotnet"
-    SCM_DO_BUILD_DURING_DEPLOYMENT = "true"
   }
 }

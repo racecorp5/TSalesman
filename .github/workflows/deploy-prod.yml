@@ -72,6 +72,8 @@ jobs:
         app-name: ${{ secrets.AZURE_FUNCTION_APP_NAME }}
         package: ./backend/publish
         publish-profile: ${{ secrets.AZURE_FUNCTION_APP_PUBLISH_PROFILE }}
+        scm-do-build-during-deployment: true
+        remote-build: true
 
     - name: Azure Login
       uses: azure/login@v2
