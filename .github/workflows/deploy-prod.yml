@@ -29,6 +29,9 @@ jobs:
     - name: Create .env file with GMAPS_API_KEY
       run: echo "GMAPS_API_KEY=${{ secrets.GMAPS_API_KEY }}" > ./frontend/.env
 
+    - name: Make replace-env.sh executable
+      run: chmod +x ./frontend/replace-env.sh
+
     - name: Replace GMAPS_API_KEY in index.html
       run: ./replace-env.sh
       env:
