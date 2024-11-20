@@ -48,6 +48,6 @@ resource "azurerm_linux_function_app" "function_app" {
 
   app_settings = {
     FUNCTIONS_WORKER_RUNTIME = "dotnet"
-    WEBSITE_RUN_FROM_PACKAGE = "1"
+    SCM_DO_BUILD_DURING_DEPLOYMENT = "true"
   }
 }
