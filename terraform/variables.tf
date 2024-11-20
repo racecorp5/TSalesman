@@ -23,14 +23,6 @@ variable "app_service_plan_name" {
   type        = string
 }
 
-variable "app_service_plan_sku" {
-  description = "The SKU of the App Service plan"
-  type        = object({
-    tier = string
-    size = string
-  })
-}
-
 variable "function_app_name" {
   description = "The name of the Function App"
   type        = string
