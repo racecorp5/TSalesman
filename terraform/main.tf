@@ -1,5 +1,10 @@
 provider "azurerm" {
   features {}
+
+  subscription_id = jsondecode(file("~/.azure/credentials.json")).subscriptionId
+  client_id       = jsondecode(file("~/.azure/credentials.json")).clientId
+  client_secret   = jsondecode(file("~/.azure/credentials.json")).clientSecret
+  tenant_id       = jsondecode(file("~/.azure/credentials.json")).tenantId
 }
 
 resource "azurerm_resource_group" "rg" {
@@ -22,10 +27,10 @@ resource "azurerm_storage_container" "static_content" {
 }
 
 resource "azurerm_service_plan" "app_service_plan" {
-  name                = "example-service-plan"
+  name                = var.app_service_plan_name
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
-  sku_name            = "F1"
+  sku_name            = "B1"
   os_type             = "Linux"
 }
 

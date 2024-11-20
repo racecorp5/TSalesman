@@ -1,6 +1,6 @@
-location             = "East US"
+location             = "Canada Central"
 resource_group_name  = "tsalesmangroup"
 storage_account_name = "tsalesmanaccount"
 app_service_plan_name = "prod-app-service-plan"
 app_service_name     = "prod-app-service"
-function_app_name    = "prod-function-app"
+function_app_name    = "prod-function-app-tsalesman"
