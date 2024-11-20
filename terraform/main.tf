@@ -44,9 +44,13 @@ resource "azurerm_linux_function_app" "function_app" {
   storage_account_access_key = azurerm_storage_account.storage.primary_access_key
 
   site_config {
+    application_stack {
+      dotnet_version = "6.0"
+    }
   }
 
   app_settings = {
     FUNCTIONS_WORKER_RUNTIME = "dotnet"
+    WEBSITE_RUN_FROM_PACKAGE = "1"
   }
 }
