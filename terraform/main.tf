@@ -47,6 +47,13 @@ resource "azurerm_linux_function_app" "function_app" {
     application_stack {
       dotnet_version = "6.0"
     }
+    
+    cors {
+      allowed_origins = [
+        "https://tsalesmanaccount.z9.web.core.windows.net/"
+      ]
+      support_credentials = false
+    }
   }
 
   app_settings = {
