@@ -29,6 +29,12 @@ jobs:
     - name: Create .env file with GMAPS_API_KEY
       run: echo "GMAPS_API_KEY=${{ secrets.GMAPS_API_KEY }}" > ./frontend/.env
 
+    - name: Replace GMAPS_API_KEY in index.html
+      run: ./replace-env.sh
+      env:
+        GMAPS_API_KEY: ${{ secrets.GMAPS_API_KEY }}
+      working-directory: ./
+
     - name: Build Angular app
       run: ng build --prod
       working-directory: ./frontend
