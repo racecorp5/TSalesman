@@ -21,6 +21,12 @@ resource "azurerm_storage_container" "static_content" {
   container_access_type = "blob"
 }
 
+resource "azurerm_storage_account_static_website" "static_website" {
+  storage_account_id = azurerm_storage_account.storage.id
+  index_document     = "index.html"
+  error_404_document = "404.html"
+}
+
 resource "azurerm_service_plan" "app_service_plan" {
   name                = var.app_service_plan_name
   location            = azurerm_resource_group.rg.location

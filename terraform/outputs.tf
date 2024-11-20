@@ -7,7 +7,7 @@ output "storage_account_name" {
 }
 
 output "static_content_url" {
-  value = azurerm_storage_account.storage.primary_blob_endpoint
+  value = azurerm_storage_account_static_website.static_website.primary_endpoint
 }
 
 output "function_app_url" {

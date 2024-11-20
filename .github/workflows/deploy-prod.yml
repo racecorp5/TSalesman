@@ -33,11 +33,15 @@ jobs:
       run: ng build --prod
       working-directory: ./frontend
 
-    - name: Upload Angular build artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: angular-build
-        path: ./frontend/dist
+    - name: Upload to Azure Storage
+      env:
+        AZURE_STORAGE_ACCOUNT: ${{ secrets.AZURE_STORAGE_ACCOUNT }}
+        AZURE_STORAGE_KEY: ${{ secrets.AZURE_STORAGE_KEY }}
+      run: |
+        az storage blob upload-batch --account-name $AZURE_STORAGE_ACCOUNT --destination static-content --source ./build
+
+    - name: Output static website URL
+      run: echo "Static website URL: https://${{ secrets.AZURE_STORAGE_ACCOUNT }}.z9.web.core.windows.net/"
 
     - name: Set up .NET
       uses: actions/setup-dotnet@v4
