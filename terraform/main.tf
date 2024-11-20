@@ -1,10 +1,5 @@
 provider "azurerm" {
   features {}
-
-  subscription_id = jsondecode(file("~/.azure/credentials.json")).subscriptionId
-  client_id       = jsondecode(file("~/.azure/credentials.json")).clientId
-  client_secret   = jsondecode(file("~/.azure/credentials.json")).clientSecret
-  tenant_id       = jsondecode(file("~/.azure/credentials.json")).tenantId
 }
 
 resource "azurerm_resource_group" "rg" {
