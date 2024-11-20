@@ -75,7 +75,7 @@ jobs:
 
     - name: Add CORS setting to Azure Function App
       run: |
-        az functionapp cors add --name ${{ secrets.AZURE_FUNCTION_APP_NAME }} --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} --allowed-origins https://tsalesmanaccount.z9.web.core.windows.net/
+        az functionapp cors add --name ${{ secrets.AZURE_FUNCTION_APP_NAME }} --resource-group tsalesmangroup --allowed-origins https://tsalesmanaccount.z9.web.core.windows.net/
       env:
         AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
         AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
