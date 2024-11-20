@@ -40,9 +40,6 @@ jobs:
       run: |
         az storage blob upload-batch --account-name $AZURE_STORAGE_ACCOUNT --destination static-content --source ./build
 
-    - name: Output static website URL
-      run: echo "Static website URL: https://${{ secrets.AZURE_STORAGE_ACCOUNT }}.z9.web.core.windows.net/"
-
     - name: Set up .NET
       uses: actions/setup-dotnet@v4
       with:
