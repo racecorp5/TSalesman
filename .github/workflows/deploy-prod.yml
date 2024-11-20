@@ -38,7 +38,7 @@ jobs:
         AZURE_STORAGE_ACCOUNT: ${{ secrets.AZURE_STORAGE_ACCOUNT }}
         AZURE_STORAGE_KEY: ${{ secrets.AZURE_STORAGE_KEY }}
       run: |
-        az storage blob upload-batch --account-name $AZURE_STORAGE_ACCOUNT --destination static-content --source ./frontend/dist/frontend --sas-token "?sv=2020-08-04&ss=bfqt&srt=sco&sp=rwdlacupx&se=2022-12-31T00:00:00Z&st=2021-12-31T00:00:00Z&spr
+        az storage blob upload-batch --account-name $AZURE_STORAGE_ACCOUNT --destination static-content --source ./frontend/dist/frontend
 
     - name: Set up .NET
       uses: actions/setup-dotnet@v4
