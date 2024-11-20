@@ -14,6 +14,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
+# SETUP FRONTEND APP
     - name: Set up Node.js
       uses: actions/setup-node@v4
       with:
@@ -48,6 +49,9 @@ jobs:
         AZURE_STORAGE_KEY: ${{ secrets.AZURE_STORAGE_KEY }}
       run: |
         az storage blob upload-batch --account-name $AZURE_STORAGE_ACCOUNT --overwrite --destination '$web' --source ./frontend/dist/frontend
+
+
+# SETUP BACKEND APP
 
     - name: Set up .NET
       uses: actions/setup-dotnet@v4
@@ -87,6 +91,7 @@ jobs:
         AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
         AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
 
+# SETUP DEVOPS
     - name: Set up Terraform
       uses: hashicorp/setup-terraform@v3
 
