@@ -26,7 +26,7 @@ resource "azurerm_storage_container" "static_content" {
   container_access_type = "blob"
 }
 
-resource "azurerm_app_service_plan" "app_service_plan" {
+resource "azurerm_service_plan" "app_service_plan" {
   name                = var.app_service_plan_name
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
@@ -40,14 +40,11 @@ resource "azurerm_function_app" "function_app" {
   name                       = var.function_app_name
   location                   = azurerm_resource_group.rg.location
   resource_group_name        = azurerm_resource_group.rg.name
-  app_service_plan_id        = azurerm_app_service_plan.app_service_plan.id
+  app_service_plan_id        = azurerm_service_plan.app_service_plan.id
   storage_account_name       = azurerm_storage_account.storage.name
   storage_account_access_key = azurerm_storage_account.storage.primary_access_key
   version                    = "~3"
   os_type                    = "linux"
-  site_config {
-    app_command_line = "dotnet AzureFunction.dll"
-  }
   app_settings = {
     FUNCTIONS_WORKER_RUNTIME = "dotnet"
     WEBSITE_RUN_FROM_PACKAGE = "1"

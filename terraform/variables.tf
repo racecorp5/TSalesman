@@ -13,6 +13,11 @@ variable "storage_account_name" {
   type        = string
 }
 
+variable "app_service_name" {
+  description = "The name of the App Service"
+  type        = string
+}
+
 variable "app_service_plan_name" {
   description = "The name of the App Service plan"
   type        = string
