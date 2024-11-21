@@ -1,8 +1,2 @@
-# Deploy the .NET backend to Azure:
-  * `cd backend`
-  * `dotnet publish -c Release`
-  * `az webapp up --name myAppService --resource-group tsalesmangroup --plan myAppServicePlan --sku F1`
-
-# Deploy the Angular app to Azure Storage:
-  * `az storage blob upload-batch -d '$web' --account-name mystorageaccount -s ../frontend/dist/frontend`
-
+# Use locally if locked
+- terraform apply -var-file=prod.tfvars -auto-approve -lock=false
