@@ -15,7 +15,7 @@ namespace TspFunctionNamespace
 
         [FunctionName("TravelingSalesman")]
         public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "post")] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
             ILogger log)
         {
             // Get cities coordinates from query or body (simplified example)
