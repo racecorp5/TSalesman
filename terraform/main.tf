@@ -50,7 +50,7 @@ resource "azurerm_linux_function_app" "function_app" {
     
     cors {
       allowed_origins = [
-        "https://tsalesmanaccount.z9.web.core.windows.net/"
+        "https://tsalesmanaccount.z9.web.core.windows.net"
       ]
       support_credentials = false
     }
