@@ -23,6 +23,8 @@ namespace TspFunctionNamespace
             [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
             ILogger log)
         {
+            log.LogError("Entered the code");
+
             // Get cities coordinates from query or body (simplified example)
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             
@@ -37,7 +39,7 @@ namespace TspFunctionNamespace
                 return new BadRequestObjectResult("Invalid JSON format");
             }
 
-            log.LogError("Entered the code");
+            log.LogError("Entered the code2");
 
             var citiesParam = data?.Cities;
             if (citiesParam == null || citiesParam.Count == 0)
