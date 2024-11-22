@@ -32,7 +32,7 @@ jobs:
         echo "export const environment = {
           production: true,
           apiUrl: 'https://prod-function-app-tsalesman.azurewebsites.net',
-          apiCode: '${{ secrets.API_CODE }}',
+          apiCode: '${{ secrets.AZURE_APP_CODE }}',
           gMapsAPIKey: '${{ secrets.GMAPS_API_KEY }}'
         };" > ./src/environments/environment.prod.ts
       working-directory: ./frontend
