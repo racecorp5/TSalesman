@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <AzureFunctionsVersion>v4</AzureFunctionsVersion>
     <OutputType>Exe</OutputType>
     <Nullable>enable</Nullable>
@@ -9,18 +9,18 @@
   </PropertyGroup>
     
   <ItemGroup>
-    <PackageReference Include="DotNetEnv" Version="3.1.1" />
-    <PackageReference Include="Microsoft.Azure.Functions.Extensions" Version="1.1.0" />
-    <PackageReference Include="Google.OrTools" Version="9.11.4210" />
-    <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="4.6.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="DotNetEnv" Version="*" />
+    <PackageReference Include="Microsoft.Azure.Functions.Extensions" Version="*" />
+    <PackageReference Include="Google.OrTools" Version="*" />
+    <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="*" />
+    <PackageReference Include="Newtonsoft.Json" Version="*" />
 
-    <PackageReference Include="System.Text.Encodings.Web" Version="6.0.0" />
-    <PackageReference Include="System.Net.Http" Version="4.3.4" />
-    <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
-    <!-- <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.Http" Version="3.2.0" /> -->
-    <!-- <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" /> -->
-    <!-- <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" /> -->
+    <PackageReference Include="System.Text.Encodings.Web" Version="*" />
+    <PackageReference Include="System.Net.Http" Version="*" />
+    <PackageReference Include="System.Text.RegularExpressions" Version="*" />
+    <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.Http" Version="*" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="*" />
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="*" />
   </ItemGroup>
 
   <ItemGroup>
