@@ -27,11 +27,15 @@ jobs:
       run: npm install
       working-directory: ./frontend
 
-    - name: Create .env file
+    - name: Update environment.ts with secrets
       run: |
-        echo "GMAPS_API_KEY=${{ secrets.GMAPS_API_KEY }}" > ./frontend/.env
-        echo "apiCode=${{ secrets.AZURE_APP_CODE }}" >> ./frontend/.env
-        
+        echo "export const environment = {
+          production: true,
+          apiUrl: 'https://prod-function-app-tsalesman.azurewebsites.net',
+          apiCode: '${{ secrets.API_CODE }}',
+          gMapsAPIKey: '${{ secrets.GMAPS_API_KEY }}'
+        };" > ./src/environments/environment.prod.ts
+
     - name: Make replace-env.sh executable
       run: chmod +x ./frontend/replace-env.sh
 
