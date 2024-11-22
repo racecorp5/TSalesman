@@ -18,9 +18,9 @@
     <PackageReference Include="System.Text.Encodings.Web" Version="*" />
     <PackageReference Include="System.Net.Http" Version="*" />
     <PackageReference Include="System.Text.RegularExpressions" Version="*" />
-    <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.Http" Version="*" />
-    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="*" />
-    <PackageReference Include="Microsoft.AspNetCore.Http" Version="*" />
+    <!-- <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.Http" Version="*" /> -->
+    <!-- <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="*" /> -->
+    <!-- <PackageReference Include="Microsoft.AspNetCore.Http" Version="*" /> -->
   </ItemGroup>
 
   <ItemGroup>
