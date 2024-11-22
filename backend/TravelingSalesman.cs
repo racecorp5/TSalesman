@@ -5,7 +5,6 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using System.Net.Http.Json;
 
 namespace System.Runtime.CompilerServices
 {
@@ -90,7 +89,8 @@ namespace TspFunctionNamespace
 
             var url = $"https://maps.googleapis.com/maps/api/distancematrix/json?origins={origins}&destinations={destinations}&key={apiKey}";
 
-            var response = await httpClient.GetFromJsonAsync<GoogleDistanceMatrixResponse>(url);
+            var jsonResponse = await httpClient.GetStringAsync(url);
+            var response = JsonConvert.DeserializeObject<GoogleDistanceMatrixResponse>(jsonResponse);
             if (response == null || response.Rows == null)
             {
                 log.LogError("Error fetching distance matrix from Google API");

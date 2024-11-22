@@ -22,7 +22,6 @@
 
     <PackageReference Include="NETStandard.Library" Version="*" />
     <PackageReference Include="Microsoft.NETCore.App" Version="*" />
-    <PackageReference Include="System.Net.Http.Json" Version="*" />
 
     <!-- <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.Http" Version="*" /> -->
     <!-- <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="*" /> -->
