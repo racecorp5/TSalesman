@@ -45,7 +45,7 @@ resource "azurerm_linux_function_app" "function_app" {
 
   site_config {
     application_stack {
-      dotnet_version = "6.0"
+      dotnet_version = "8.0"
     }
     
     cors {
