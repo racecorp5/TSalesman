@@ -27,9 +27,11 @@ jobs:
       run: npm install
       working-directory: ./frontend
 
-    - name: Create .env file with GMAPS_API_KEY
-      run: echo "GMAPS_API_KEY=${{ secrets.GMAPS_API_KEY }}" > ./frontend/.env
-
+    - name: Create .env file
+      run: |
+        echo "GMAPS_API_KEY=${{ secrets.GMAPS_API_KEY }}" > ./frontend/.env
+        echo "apiCode=${{ secrets.AZURE_APP_CODE }}" >> ./frontend/.env
+        
     - name: Make replace-env.sh executable
       run: chmod +x ./frontend/replace-env.sh
 

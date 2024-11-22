@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   apiUrl: 'http://localhost:7071',
+  apiCode: '',
   gMapsAPIKey: 'REMOVED_API_KEY'
 };
 
