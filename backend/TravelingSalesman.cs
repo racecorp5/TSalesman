@@ -7,6 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Net.Http.Json;
 
+namespace System.Runtime.CompilerServices
+{
+    public class IsExternalInit { }
+}
+
 namespace TspFunctionNamespace
 {
     public static class TspFunction

@@ -6,6 +6,7 @@
     <OutputType>Exe</OutputType>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>10.0</LangVersion>
   </PropertyGroup>
     
   <ItemGroup>
@@ -18,9 +19,20 @@
     <PackageReference Include="System.Text.Encodings.Web" Version="*" />
     <PackageReference Include="System.Net.Http" Version="*" />
     <PackageReference Include="System.Text.RegularExpressions" Version="*" />
+
+    <PackageReference Include="NETStandard.Library" Version="*" />
+    <PackageReference Include="Microsoft.NETCore.App" Version="*" />
+    <PackageReference Include="System.Net.Http.Json" Version="*" />
+
     <!-- <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.Http" Version="*" /> -->
     <!-- <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="*" /> -->
     <!-- <PackageReference Include="Microsoft.AspNetCore.Http" Version="*" /> -->
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="netstandard">
+      <HintPath>$(NETStandardLibraryPath)\netstandard.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>
