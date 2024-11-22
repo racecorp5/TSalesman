@@ -35,6 +35,7 @@ jobs:
           apiCode: '${{ secrets.API_CODE }}',
           gMapsAPIKey: '${{ secrets.GMAPS_API_KEY }}'
         };" > ./src/environments/environment.prod.ts
+      working-directory: ./frontend
 
     - name: Make replace-env.sh executable
       run: chmod +x ./frontend/replace-env.sh
