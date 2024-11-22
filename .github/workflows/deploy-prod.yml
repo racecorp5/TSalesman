@@ -84,6 +84,14 @@ jobs:
         package: ./backend/publish
         publish-profile: ${{ secrets.AZURE_FUNCTION_APP_PUBLISH_PROFILE }}
 
+    - name: Set environment variables
+      run: |
+        az functionapp config appsettings set --name ${{ secrets.AZURE_FUNCTION_APP_NAME }} --resource-group tsalesmangroup --settings GOOGLE_API_KEY=${{ secrets.GOOGLE_API_KEY }}
+      env:
+        AZURE_FUNCTIONAPP_NAME: ${{ secrets.AZURE_FUNCTION_APP_NAME }}
+        AZURE_RESOURCE_GROUP: tsalesmangroup
+        GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+
     - name: Azure Login
       uses: azure/login@v2
       with:
