@@ -37,6 +37,8 @@ namespace TspFunctionNamespace
                 return new BadRequestObjectResult("Invalid JSON format");
             }
 
+            log.LogError("Entered the code");
+
             var citiesParam = data?.Cities;
             if (citiesParam == null || citiesParam.Count == 0)
             {
